@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#10B981"/>
+      <stop offset="0.55" stop-color="#059669"/>
+      <stop offset="1" stop-color="#0EA5A0"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#g)"/>
+  <!-- ใบไม้ -->
+  <path d="M256 96c-40 66-116 92-186 104 6 98 66 174 186 216 120-42 180-118 186-216C372 188 296 162 256 96z"
+        fill="#ffffff" fill-opacity="0.16"/>
+  <!-- เกลียว DNA -->
+  <g stroke="#ffffff" stroke-width="20" stroke-linecap="round" fill="none">
+    <path d="M196 140c0 60 120 60 120 120s-120 60-120 120"/>
+    <path d="M316 140c0 60-120 60-120 120s120 60 120 120"/>
+    <path d="M209 180h94M196 240h120M196 290h120M209 350h94" stroke-width="15" stroke-opacity="0.92"/>
+  </g>
+</svg>

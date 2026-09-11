@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ศูนย์การเรียนรู้ชีววิทยา ม.ปลาย | ครูนันธิดา คำแดง</title>
+<script>
+/* ตั้งธีมก่อนวาดหน้า — ถ้ารอถึงท้ายไฟล์ หน้าจะแวบสว่างก่อนแล้วค่อยเปลี่ยนเป็นมืด */
+(function(){try{var v=localStorage.getItem('bio-nk-theme');
+  if(v==='dark'||v==='light')document.documentElement.setAttribute('data-theme',v);}catch(e){}})();
+</script>
+<meta name="theme-color" content="#059669">
+<meta name="description" content="เนื้อหาชีววิทยา ม.ปลาย 29 บท พร้อมแบบทดสอบทบทวนแบบเว้นช่วง — ครูนันธิดา คำแดง โรงเรียนสุรวิทยาคาร">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="ชีววิทยา">
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">ข้ามไปยังเนื้อหาหลัก</a>
+
+<!-- NAV -->
+<nav aria-label="เมนูหลัก">
+  <a class="nav-logo" onclick="showPage('welcome')">
+    <div class="nav-logo-icon">B</div>
+    <div>
+      <div class="nav-title">ศูนย์การเรียนรู้ชีววิทยา</div>
+      <div class="nav-sub">ครูนันธิดา คำแดง</div>
+    </div>
+  </a>
+  <div class="nav-links">
+    <button class="nav-link" id="nav-welcome" onclick="showPage('welcome')">หน้าแรก</button>
+    <button class="nav-link" id="nav-home"    onclick="showPage('home')">เนื้อหาวิชา</button>
+    <button class="nav-link" id="nav-media"   onclick="showPage('media')">สื่อการเรียน</button>
+    <button class="nav-link" id="nav-quiz"   onclick="showPage('quiz');Quiz.home()">แบบทดสอบ</button>
+    <button class="nav-link" id="nav-dashboard" onclick="showPage('dashboard');Dash.render()">ความก้าวหน้า</button>
+    <button class="nav-link" id="nav-docs"    onclick="showPage('docs')">ใบความรู้</button>
+    <button class="theme-btn" id="themeBtn" onclick="Theme.cycle()" aria-label="สลับธีม">🌗</button>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════ PAGE: WELCOME ════════════════════════════════════ -->
+<main id="main-content">
+<div class="page active" id="page-welcome">
+  <section class="hero">
+    <div class="bio-deco bio-deco-1">🧬</div>
+    <div class="bio-deco bio-deco-2">🌿</div>
+    <div class="bio-deco bio-deco-3">🦠</div>
+    <div class="bio-deco bio-deco-4">🫀</div>
+    <div style="position:relative;z-index:1">
+      <div class="hero-badge">🌱 โรงเรียนสุรวิทยาคาร · สุรินทร์</div>
+      <h1>ศูนย์การเรียนรู้<br><span>วิชาชีววิทยา</span> ม.ปลาย</h1>
+      <p>เรียนรู้ได้ทุกที่ ทุกเวลา เนื้อหาครบถ้วนตั้งแต่ ชีววิทยา 1 ถึง ชีววิทยา 6 พร้อมสื่อการเรียนและใบความรู้ตามหลักสูตร สสวท.</p>
+      <button class="hero-btn" onclick="showPage('home')">เริ่มเรียนเลย →</button>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="stats-bar" style="margin-top:-32px; position:relative; z-index:2; box-shadow:0 4px 24px rgba(0,0,0,0.08);">
+      <div class="stat-item">
+        <div class="stat-num" style="color:var(--green-d)">6</div>
+        <div class="stat-lbl">วิชาชีววิทยา</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" style="color:var(--teal)" id="hs-chap">29</div>
+        <div class="stat-lbl">บทเรียน</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" style="color:var(--blue)" id="hs-prob">544</div>
+        <div class="stat-lbl">โจทย์ฝึก</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" style="color:var(--leaf)">ฟรี</div>
+        <div class="stat-lbl">ไม่มีค่าใช้จ่าย</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="resume-bar" id="resumeBar">
+    <div class="resume-in">
+      <div style="font-size:26px" aria-hidden="true">📖</div>
+      <div class="resume-t">
+        <b id="resumeTitle"></b>
+        <span id="resumeSub"></span>
+      </div>
+      <button class="q-btn q-btn-main">เรียนต่อ →</button>
+    </div>
+  </div>
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img" aria-hidden="true">🔬</div>
+      <div class="about-text">
+        <h2>เกี่ยวกับศูนย์การเรียนรู้</h2>
+        <p>ยินดีต้อนรับสู่ศูนย์การเรียนรู้วิชาชีววิทยา ม.ปลาย จัดทำขึ้นโดยไม่หวังผลประโยชน์ทางการค้า มีจุดประสงค์เพื่อให้นักเรียนเกิดการเรียนรู้ได้ทุกที่ ทุกเวลา</p>
+        <p>เนื้อหาครอบคลุมตั้งแต่ธรรมชาติของสิ่งมีชีวิต ระดับเซลล์ พันธุกรรม พืชดอก ระบบในร่างกายมนุษย์ จนถึงความหลากหลายทางชีวภาพและระบบนิเวศ ตามหลักสูตรของ สสวท.</p>
+        <div style="margin-top:14px">
+          <span class="about-tag" style="background:var(--green-l);color:var(--green-d)">ชีววิทยา 1–6</span>
+          <span class="about-tag" style="background:var(--amber-l);color:var(--ink-amber)">สื่อการเรียน</span>
+          <span class="about-tag" style="background:var(--purple-l);color:var(--purple)">ใบความรู้</span>
+          <span class="about-tag" style="background:var(--blue-l);color:var(--blue-d)">ฟรีทั้งหมด</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-card">
+      <div class="contact-avatar">น</div>
+      <div>
+        <div class="contact-name">ครูนันธิดา คำแดง</div>
+        <div class="contact-school">โรงเรียนสุรวิทยาคาร จ.สุรินทร์</div>
+        <div class="contact-row">📧 <a href="mailto:pitukpong36@brw.ac.th">pitukpong36@brw.ac.th</a></div>
+        <div class="contact-row">📍 โรงเรียนสุรวิทยาคาร อ.เมืองสุรินทร์ จ.สุรินทร์ 32000</div>
+        <div class="contact-row">📞 0-4451-1189</div>
+        <p style="font-size:13px;color:var(--muted);margin-top:10px;">หากพบข้อผิดพลาดในไซต์นี้ โปรดแจ้งที่อีเมลด้านบน ทางผู้จัดทำจะได้ปรับปรุงให้ถูกต้องยิ่งขึ้น</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <strong>ศูนย์การเรียนรู้ชีววิทยา ม.ปลาย</strong> · จัดทำโดย ครูนันธิดา คำแดง<br>
+    โรงเรียนสุรวิทยาคาร จ.สุรินทร์ · <a href="mailto:pitukpong36@brw.ac.th">pitukpong36@brw.ac.th</a>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════ PAGE: HOME ════════════════════════════════════ -->
+<div class="page" id="page-home">
+  <div class="page-header">
+    <h1>🧬 เนื้อหาวิชาชีววิทยา ม.ปลาย</h1>
+    <p>เลือกวิชาและบทเรียนที่ต้องการเรียน · 29 บทเรียน ตามหลักสูตร สสวท.</p>
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchBox" class="search-box" role="searchbox" aria-label="ค้นหาบทเรียน หัวข้อ และโจทย์" aria-describedby="srch-hint" placeholder="ค้นหาบท หัวข้อ หรือโจทย์ เช่น เซลล์, DNA, ฮอร์โมน...">
+      <span id="srch-hint" class="sr-only">พิมพ์อย่างน้อย 2 ตัวอักษร ระบบจะค้นทั้งชื่อบท หัวข้อในบท และโจทย์</span>
+    </div>
+    <div id="srchRes" class="srch-wrap" style="display:none" aria-live="polite"></div>
+  </div>
+
+  <div class="progress-banner">
+    <div class="progress-card">
+      <div style="font-size:24px;">📈</div>
+      <div style="flex:1;min-width:140px;">
+        <div style="font-family:'Prompt',sans-serif;font-weight:600;font-size:14px;">ความก้าวหน้าการเรียน</div>
+        <div class="progress-label" id="progressText">เริ่มต้นเรียนรู้ได้เลย!</div>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <button class="progress-reset" onclick="resetProgress()">รีเซ็ต</button>
+    </div>
+  </div>
+
+  <div class="subjects-grid" id="subjectsGrid">
+    <!-- ชีววิทยา 1 -->
+    <div class="subject-card b1" data-keys="ชีววิทยา 1 ธรรมชาติ สิ่งมีชีวิต วิธีการทางวิทยาศาสตร์ เคมีพื้นฐาน เซลล์">
+      <div class="subject-card-top">
+        <div class="subject-icon sc-bg"><span style="color:var(--sc)">🔬</span></div>
+        <div>
+          <div class="subject-card-title sc-txt">ชีววิทยา 1</div>
+          <div class="subject-card-desc">ธรรมชาติของสิ่งมีชีวิต · เซลล์ · เคมีพื้นฐาน</div>
+        </div>
+      </div>
+      <div class="subject-chapters">
+        <button class="chapter-link" data-cid="b1c1" onclick="showChapter('b1c1')"><span class="chapter-num sc-bg sc-txt">1</span> ธรรมชาติของสิ่งมีชีวิต <span class="check" id="chk-b1c1"></span></button>
+        <button class="chapter-link" data-cid="b1c2" onclick="showChapter('b1c2')"><span class="chapter-num sc-bg sc-txt">2</span> การศึกษาชีววิทยาและวิธีการทางวิทยาศาสตร์ <span class="check" id="chk-b1c2"></span></button>
+        <button class="chapter-link" data-cid="b1c3" onclick="showChapter('b1c3')"><span class="chapter-num sc-bg sc-txt">3</span> เคมีที่เป็นพื้นฐานของสิ่งมีชีวิต <span class="check" id="chk-b1c3"></span></button>
+        <button class="chapter-link" data-cid="b1c4" onclick="showChapter('b1c4')"><span class="chapter-num sc-bg sc-txt">4</span> เซลล์ของสิ่งมีชีวิต <span class="check" id="chk-b1c4"></span></button>
+      </div>
+    </div>
+
+    <!-- ชีววิทยา 2 -->
+    <div class="subject-card b2" data-keys="ชีววิทยา 2 ลำเลียงสาร หายใจระดับเซลล์ สังเคราะห์ด้วยแสง แบ่งเซลล์">
+      <div class="subject-card-top">
+        <div class="subject-icon sc-bg"><span style="color:var(--sc)">🧫</span></div>
+        <div>
+          <div class="subject-card-title sc-txt">ชีววิทยา 2</div>
+          <div class="subject-card-desc">การลำเลียง · หายใจระดับเซลล์ · แบ่งเซลล์</div>
+        </div>
+      </div>
+      <div class="subject-chapters">
+        <button class="chapter-link" data-cid="b2c5" onclick="showChapter('b2c5')"><span class="chapter-num sc-bg sc-txt">5</span> การลำเลียงสารเข้าและออกจากเซลล์ <span class="check" id="chk-b2c5"></span></button>
+        <button class="chapter-link" data-cid="b2c6" onclick="showChapter('b2c6')"><span class="chapter-num sc-bg sc-txt">6</span> การหายใจระดับเซลล์ <span class="check" id="chk-b2c6"></span></button>
+        <button class="chapter-link" data-cid="b2c7" onclick="showChapter('b2c7')"><span class="chapter-num sc-bg sc-txt">7</span> การสังเคราะห์ด้วยแสง <span class="check" id="chk-b2c7"></span></button>
+        <button class="chapter-link" data-cid="b2c8" onclick="showChapter('b2c8')"><span class="chapter-num sc-bg sc-txt">8</span> การแบ่งเซลล์ <span class="check" id="chk-b2c8"></span></button>
+      </div>
+    </div>
+
+    <!-- ชีววิทยา 3 -->
+    <div class="subject-card b3" data-keys="ชีววิทยา 3 พันธุกรรม ยีน โครโมโซม DNA วิวัฒนาการ">
+      <div class="subject-card-top">
+        <div class="subject-icon sc-bg"><span style="color:var(--sc)">🧬</span></div>
+        <div>
+          <div class="subject-card-title sc-txt">ชีววิทยา 3</div>
+          <div class="subject-card-desc">พันธุกรรม · ยีน · DNA · วิวัฒนาการ</div>
+        </div>
+      </div>
+      <div class="subject-chapters">
+        <button class="chapter-link" data-cid="b3c9" onclick="showChapter('b3c9')"><span class="chapter-num sc-bg sc-txt">9</span> การถ่ายทอดลักษณะทางพันธุกรรม <span class="check" id="chk-b3c9"></span></button>
+        <button class="chapter-link" data-cid="b3c10" onclick="showChapter('b3c10')"><span class="chapter-num sc-bg sc-txt">10</span> ยีนและโครโมโซม <span class="check" id="chk-b3c10"></span></button>
+        <button class="chapter-link" data-cid="b3c11" onclick="showChapter('b3c11')"><span class="chapter-num sc-bg sc-txt">11</span> DNA และเทคโนโลยีทางพันธุกรรม <span class="check" id="chk-b3c11"></span></button>
+        <button class="chapter-link" data-cid="b3c12" onclick="showChapter('b3c12')"><span class="chapter-num sc-bg sc-txt">12</span> วิวัฒนาการ <span class="check" id="chk-b3c12"></span></button>
+      </div>
+    </div>
+
+    <!-- ชีววิทยา 4 -->
+    <div class="subject-card b4" data-keys="ชีววิทยา 4 พืชดอก ลำเลียงพืช สังเคราะห์แสงพืช สืบพันธุ์พืช ตอบสนองพืช">
+      <div class="subject-card-top">
+        <div class="subject-icon sc-bg"><span style="color:var(--sc)">🌿</span></div>
+        <div>
+          <div class="subject-card-title sc-txt">ชีววิทยา 4</div>
+          <div class="subject-card-desc">โครงสร้างพืช · ลำเลียงในพืช · สังเคราะห์ด้วยแสง · สืบพันธุ์ · ตอบสนอง</div>
+        </div>
+      </div>
+      <div class="subject-chapters">
+        <button class="chapter-link" data-cid="b4c13" onclick="showChapter('b4c13')"><span class="chapter-num sc-bg sc-txt">13</span> โครงสร้างและหน้าที่ของพืชดอก <span class="check" id="chk-b4c13"></span></button>
+        <button class="chapter-link" data-cid="b4c14" onclick="showChapter('b4c14')"><span class="chapter-num sc-bg sc-txt">14</span> การลำเลียงในพืช <span class="check" id="chk-b4c14"></span></button>
+        <button class="chapter-link" data-cid="b4c15" onclick="showChapter('b4c15')"><span class="chapter-num sc-bg sc-txt">15</span> การสังเคราะห์ด้วยแสงในพืช <span class="check" id="chk-b4c15"></span></button>
+        <button class="chapter-link" data-cid="b4c16" onclick="showChapter('b4c16')"><span class="chapter-num sc-bg sc-txt">16</span> การสืบพันธุ์ของพืชดอก <span class="check" id="chk-b4c16"></span></button>
+        <button class="chapter-link" data-cid="b4c17" onclick="showChapter('b4c17')"><span class="chapter-num sc-bg sc-txt">17</span> การตอบสนองของพืช <span class="check" id="chk-b4c17"></span></button>
+      </div>
+    </div>
+
+    <!-- ชีววิทยา 5 -->
+    <div class="subject-card b5" data-keys="ชีววิทยา 5 ระบบย่อยอาหาร หมุนเวียนเลือด หายใจ ขับถ่าย ประสาท ต่อมไร้ท่อ สืบพันธุ์ มนุษย์">
+      <div class="subject-card-top">
+        <div class="subject-icon sc-bg"><span style="color:var(--sc)">🫀</span></div>
+        <div>
+          <div class="subject-card-title sc-txt">ชีววิทยา 5</div>
+          <div class="subject-card-desc">ระบบในร่างกายมนุษย์และสัตว์</div>
+        </div>
+      </div>
+      <div class="subject-chapters">
+        <button class="chapter-link" data-cid="b5c18" onclick="showChapter('b5c18')"><span class="chapter-num sc-bg sc-txt">18</span> ระบบย่อยอาหาร <span class="check" id="chk-b5c18"></span></button>
+        <button class="chapter-link" data-cid="b5c19" onclick="showChapter('b5c19')"><span class="chapter-num sc-bg sc-txt">19</span> ระบบหมุนเวียนเลือด <span class="check" id="chk-b5c19"></span></button>
+        <button class="chapter-link" data-cid="b5c20" onclick="showChapter('b5c20')"><span class="chapter-num sc-bg sc-txt">20</span> ระบบหายใจ <span class="check" id="chk-b5c20"></span></button>
+        <button class="chapter-link" data-cid="b5c21" onclick="showChapter('b5c21')"><span class="chapter-num sc-bg sc-txt">21</span> ระบบขับถ่าย <span class="check" id="chk-b5c21"></span></button>
+        <button class="chapter-link" data-cid="b5c22" onclick="showChapter('b5c22')"><span class="chapter-num sc-bg sc-txt">22</span> ระบบประสาทและอวัยวะรับความรู้สึก <span class="check" id="chk-b5c22"></span></button>
+        <button class="chapter-link" data-cid="b5c23" onclick="showChapter('b5c23')"><span class="chapter-num sc-bg sc-txt">23</span> ระบบต่อมไร้ท่อ <span class="check" id="chk-b5c23"></span></button>
+        <button class="chapter-link" data-cid="b5c24" onclick="showChapter('b5c24')"><span class="chapter-num sc-bg sc-txt">24</span> ระบบสืบพันธุ์และการเจริญเติบโต <span class="check" id="chk-b5c24"></span></button>
+      </div>
+    </div>
+
+    <!-- ชีววิทยา 6 -->
+    <div class="subject-card b6" data-keys="ชีววิทยา 6 หลากหลาย ชีวภาพ อนุกรมวิธาน ระบบนิเวศ ประชากร สิ่งแวดล้อม ทรัพยากร">
+      <div class="subject-card-top">
+        <div class="subject-icon sc-bg"><span style="color:var(--sc)">🌍</span></div>
+        <div>
+          <div class="subject-card-title sc-txt">ชีววิทยา 6</div>
+          <div class="subject-card-desc">ความหลากหลาย · ระบบนิเวศ · ประชากร · สิ่งแวดล้อม</div>
+        </div>
+      </div>
+      <div class="subject-chapters">
+        <button class="chapter-link" data-cid="b6c25" onclick="showChapter('b6c25')"><span class="chapter-num sc-bg sc-txt">25</span> ความหลากหลายทางชีวภาพ <span class="check" id="chk-b6c25"></span></button>
+        <button class="chapter-link" data-cid="b6c26" onclick="showChapter('b6c26')"><span class="chapter-num sc-bg sc-txt">26</span> อนุกรมวิธาน <span class="check" id="chk-b6c26"></span></button>
+        <button class="chapter-link" data-cid="b6c27" onclick="showChapter('b6c27')"><span class="chapter-num sc-bg sc-txt">27</span> ระบบนิเวศ <span class="check" id="chk-b6c27"></span></button>
+        <button class="chapter-link" data-cid="b6c28" onclick="showChapter('b6c28')"><span class="chapter-num sc-bg sc-txt">28</span> ประชากร <span class="check" id="chk-b6c28"></span></button>
+        <button class="chapter-link" data-cid="b6c29" onclick="showChapter('b6c29')"><span class="chapter-num sc-bg sc-txt">29</span> มนุษย์กับความยั่งยืนของทรัพยากรธรรมชาติและสิ่งแวดล้อม <span class="check" id="chk-b6c29"></span></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="extra-cards">
+    <div class="extra-card" onclick="showPage('media')">
+      <div class="extra-icon" style="background:var(--amber-l)">🎬</div>
+      <div>
+        <div class="extra-title">สื่อการเรียน</div>
+        <div class="extra-desc">วิดีโอ แอนิเมชัน และจำลองทดลองทางชีววิทยา</div>
+      </div>
+    </div>
+    <div class="extra-card" onclick="showPage('docs')">
+      <div class="extra-icon" style="background:var(--green-l)">📄</div>
+      <div>
+        <div class="extra-title">ใบความรู้</div>
+        <div class="extra-desc">เอกสารประกอบการเรียน ดาวน์โหลดได้ฟรี</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <strong>ศูนย์การเรียนรู้ชีววิทยา ม.ปลาย</strong> · จัดทำโดย ครูนันธิดา คำแดง · <a href="mailto:pitukpong36@brw.ac.th">pitukpong36@brw.ac.th</a>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════ PAGE: CHAPTER ════════════════════════════════════ -->
+<div class="page" id="page-chapter">
+  <div class="chapter-header">
+    <div class="chapter-breadcrumb">
+      <button class="crumb-link" onclick="showPage('home')">เนื้อหาวิชา</button>
+      <span>›</span>
+      <span id="crumb-subject"></span>
+      <span>›</span>
+      <span id="crumb-chapter" style="color:var(--text)"></span>
+    </div>
+    <div class="chapter-badge sc-bg sc-txt" id="chap-badge"></div>
+    <h1 class="chapter-title" id="chap-title"></h1>
+    <p class="chapter-meta" id="chap-meta"></p>
+    <div class="chapter-toolbar">
+      <button class="chap-btn" id="markDoneBtn" onclick="toggleDone()">✓ ทำเครื่องหมายว่าเรียนแล้ว</button>
+      <button class="chap-btn" onclick="showPage('home')">← กลับไปหน้าเนื้อหา</button>
+      <button class="chap-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ เลื่อนขึ้น</button>
+    </div>
+  </div>
+  <div class="chapter-content" id="chap-body"></div>
+  <footer>
+    <strong>ศูนย์การเรียนรู้ชีววิทยา ม.ปลาย</strong> · จัดทำโดย ครูนันธิดา คำแดง · <a href="mailto:pitukpong36@brw.ac.th">pitukpong36@brw.ac.th</a>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════ PAGE: MEDIA ════════════════════════════════════ -->
+<!-- ============ เฟส 4: แบบทดสอบทบทวน ============ -->
+<div class="page" id="page-quiz">
+  <div class="page-header">
+    <h1>✏️ แบบทดสอบทบทวน</h1>
+    <p>อ่านโจทย์ → คิดคำตอบในใจ → เปิดเฉลย → บอกระบบว่าจำได้แค่ไหน ระบบจะจัดคิวเอาข้อที่ยังไม่แม่นกลับมาถามซ้ำให้เอง</p>
+  </div>
+  <div class="q-wrap">
+
+    <!-- หน้าเลือกโหมด -->
+    <div id="q-setup">
+      <div class="q-panel">
+        <h3>เลือกวิธีทบทวน</h3>
+        <div class="q-modes">
+          <button class="q-mode" id="q-mode-due" onclick="Quiz.start('due')">
+            <div class="q-mode-ico">🔁</div>
+            <div class="q-mode-t">ทบทวนที่ครบกำหนด</div>
+            <div class="q-mode-d">ข้อที่เคยทำแล้วและถึงเวลาต้องทบทวนซ้ำวันนี้</div>
+            <span class="q-mode-n" id="q-n-due">0 ข้อ</span>
+          </button>
+          <button class="q-mode" id="q-mode-new" onclick="Quiz.start('new')">
+            <div class="q-mode-ico">🌱</div>
+            <div class="q-mode-t">ข้อใหม่ที่ยังไม่เคยทำ</div>
+            <div class="q-mode-d">เริ่มจากบทต้น ๆ ไล่ไปตามลำดับ ครั้งละ 20 ข้อ</div>
+            <span class="q-mode-n" id="q-n-new">0 ข้อ</span>
+          </button>
+          <button class="q-mode" id="q-mode-weak" onclick="Quiz.start('weak')">
+            <div class="q-mode-ico">🎯</div>
+            <div class="q-mode-t">เจาะจุดอ่อน</div>
+            <div class="q-mode-d">ข้อที่เคยตอบว่า "ยังไม่ได้" บ่อยที่สุด</div>
+            <span class="q-mode-n" id="q-n-weak">0 ข้อ</span>
+          </button>
+          <button class="q-mode" onclick="Quiz.start('random')">
+            <div class="q-mode-ico">🎲</div>
+            <div class="q-mode-t">สุ่มทั้งหมด</div>
+            <div class="q-mode-d">สุ่มจากทุกบทที่มีโจทย์ ครั้งละ 20 ข้อ</div>
+            <span class="q-mode-n" id="q-n-all">0 ข้อ</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="q-panel">
+        <h3>หรือเลือกเจาะจงเป็นรายบท</h3>
+        <div class="q-chaps" id="q-chap-list"></div>
+        <div class="q-btn-row">
+          <button class="q-btn q-btn-main" id="q-start-sel" onclick="Quiz.start('selected')" disabled>เริ่มทบทวนบทที่เลือก</button>
+          <button class="q-btn q-btn-ghost" onclick="Quiz.selectAll(true)">เลือกทุกบท</button>
+          <button class="q-btn q-btn-ghost" onclick="Quiz.selectAll(false)">ล้างที่เลือก</button>
+        </div>
+        <p class="q-note" id="q-sel-note">ยังไม่ได้เลือกบท</p>
+      </div>
+    </div>
+
+    <!-- หน้าทำข้อสอบ -->
+    <div id="q-run" style="display:none">
+      <div class="q-panel">
+        <div class="q-topbar">
+          <span class="q-count" id="q-count">ข้อ 1 / 20</span>
+          <button class="q-btn q-btn-ghost" onclick="Quiz.quit()">จบการทบทวน</button>
+        </div>
+        <div class="q-bar"><div class="q-bar-fill" id="q-bar" style="width:0%"></div></div>
+        <div class="q-src" id="q-src"></div>
+        <div class="q-topic" id="q-topic" style="display:none"></div>
+        <h4 class="q-title" id="q-title"></h4>
+        <div class="q-stem" id="q-stem"></div>
+
+        <div id="q-reveal-wrap" class="q-btn-row">
+          <button class="q-btn q-btn-main" onclick="Quiz.reveal()">เปิดเฉลย</button>
+          <span class="q-note" style="margin:0">คิดคำตอบให้ได้ก่อนค่อยกดนะครับ</span>
+        </div>
+
+        <div id="q-ans-wrap" style="display:none">
+          <div class="q-ans">
+            <div class="q-ans-h">💡 แนวคิด / เฉลย</div>
+            <div id="q-ans"></div>
+          </div>
+          <p class="q-note">ประเมินตัวเองตามตรง — ระบบใช้คำตอบนี้จัดคิวทบทวน ถ้าโกงตัวเองข้อที่ไม่แม่นจะไม่กลับมา</p>
+          <div class="q-grade">
+            <button class="q-g q-g0" onclick="Quiz.grade(0)">😖 ยังไม่ได้<small>กลับมาถามใหม่ในรอบนี้</small></button>
+            <button class="q-g q-g1" onclick="Quiz.grade(1)">🤔 ไม่แน่ใจ<small>ถามซ้ำเร็ว ๆ นี้</small></button>
+            <button class="q-g q-g2" onclick="Quiz.grade(2)">😄 จำได้<small>ทิ้งช่วงให้นานขึ้น</small></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- หน้าสรุปผล -->
+    <div id="q-done" style="display:none">
+      <div class="q-panel q-done">
+        <div class="q-done-ico" id="q-done-ico">🎉</div>
+        <h3 id="q-done-t" style="font-size:1.2rem">ทบทวนครบแล้ว!</h3>
+        <p class="q-note" id="q-done-sub"></p>
+        <div class="q-res">
+          <div class="q-res-i"><div class="q-res-n" style="color:var(--green-d)" id="q-r2">0</div><div class="q-res-l">😄 จำได้</div></div>
+          <div class="q-res-i"><div class="q-res-n" style="color:var(--ink-amber)" id="q-r1">0</div><div class="q-res-l">🤔 ไม่แน่ใจ</div></div>
+          <div class="q-res-i"><div class="q-res-n" style="color:var(--ink-coral)" id="q-r0">0</div><div class="q-res-l">😖 ยังไม่ได้</div></div>
+        </div>
+        <div class="q-btn-row" style="justify-content:center">
+          <button class="q-btn q-btn-main" onclick="Quiz.home()">ทบทวนชุดใหม่</button>
+          <button class="q-btn q-btn-ghost" onclick="showPage('dashboard');Dash.render()">ดูความก้าวหน้า</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============ เฟส 4: แดชบอร์ดความก้าวหน้า ============ -->
+<div class="page" id="page-dashboard">
+  <div class="page-header">
+    <h1>📊 ความก้าวหน้าของฉัน</h1>
+    <p>สรุปผลการเรียนและการทบทวนทั้งหมด — ข้อมูลเก็บอยู่ในเบราว์เซอร์เครื่องนี้เท่านั้น</p>
+  </div>
+  <div class="q-wrap">
+    <div class="dash-grid">
+      <div class="dash-card"><div class="dash-n" id="d-chap">0</div><div class="dash-l">บทที่เรียนแล้ว</div></div>
+      <div class="dash-card"><div class="dash-n" id="d-seen">0</div><div class="dash-l">ข้อที่ทบทวนแล้ว</div></div>
+      <div class="dash-card"><div class="dash-n" id="d-mastered">0</div><div class="dash-l">ข้อที่แม่นแล้ว</div></div>
+      <div class="dash-card"><div class="dash-n" id="d-due">0</div><div class="dash-l">ครบกำหนดวันนี้</div></div>
+      <div class="dash-card"><div class="dash-n" id="d-streak">0</div><div class="dash-l">ทบทวนต่อเนื่อง (วัน)</div></div>
+    </div>
+
+    <div class="q-panel">
+      <h3>รายบท</h3>
+      <div class="dash-scroll">
+        <table class="dash-table">
+          <thead><tr><th>บท</th><th>เรียนแล้ว</th><th>ทบทวน</th><th style="width:34%">ความแม่น</th></tr></thead>
+          <tbody id="d-rows"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="q-panel">
+      <h3>🎯 ข้อที่ควรกลับไปดู</h3>
+      <div id="d-weak"></div>
+    </div>
+
+    <div class="q-panel">
+      <h3>จัดการข้อมูล</h3>
+      <p class="q-note" style="margin-top:0">ข้อมูลทั้งหมดอยู่ในเบราว์เซอร์เครื่องนี้ ถ้าล้างข้อมูลเบราว์เซอร์หรือเปลี่ยนเครื่องจะหาย — ส่งออกไฟล์เก็บไว้ได้</p>
+      <div class="q-btn-row">
+        <button class="q-btn q-btn-ghost" onclick="Dash.exportCSV()">⬇️ ส่งออก CSV (สำหรับครู)</button>
+        <button class="q-btn q-btn-ghost" onclick="Dash.exportJSON()">💾 สำรองข้อมูล (JSON)</button>
+        <button class="q-btn q-btn-ghost" onclick="Dash.importJSON()">📂 กู้คืนจากไฟล์</button>
+        <button class="q-btn q-btn-ghost" style="color:#9F1239;border-color:var(--coral)" onclick="Dash.resetAll()">🗑️ ล้างข้อมูลทั้งหมด</button>
+      </div>
+      <input type="file" id="d-file" accept="application/json,.json" style="display:none">
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-media">
+  <div class="page-header" style="background:linear-gradient(135deg,var(--amber-l),var(--head-2b))">
+    <h1>🎬 สื่อการเรียนชีววิทยา</h1>
+    <p>วิดีโอ แอนิเมชัน และทดลองเสมือนจริง สำหรับนักเรียน ม.ปลาย</p>
+  </div>
+  <div class="generic-content">
+    <div style="margin-top:32px">
+      <div class="content-section">
+        <h3>🧫 หมวด: ชีววิทยาของเซลล์ (Cell Biology)</h3>
+        <div class="media-grid">
+          <div class="media-card"><div class="ic">🔬</div><div class="ti">โครงสร้างเซลล์ 3 มิติ</div><div class="de">แอนิเมชันแสดงออร์แกเนลล์ภายในเซลล์สัตว์และเซลล์พืช</div></div>
+          <div class="media-card"><div class="ic">🧪</div><div class="ti">การลำเลียงผ่านเยื่อหุ้มเซลล์</div><div class="de">วิดีโออธิบาย diffusion, osmosis, active transport</div></div>
+          <div class="media-card"><div class="ic">⚡</div><div class="ti">การหายใจระดับเซลล์</div><div class="de">ขั้นตอน Glycolysis, Krebs cycle, ETC</div></div>
+          <div class="media-card"><div class="ic">🌱</div><div class="ti">การสังเคราะห์ด้วยแสง</div><div class="de">Light reaction และ Calvin cycle</div></div>
+        </div>
+      </div>
+      <div class="content-section">
+        <h3>🧬 หมวด: พันธุศาสตร์ (Genetics)</h3>
+        <div class="media-grid">
+          <div class="media-card"><div class="ic">🧬</div><div class="ti">โครงสร้าง DNA</div><div class="de">การจำลอง DNA replication และ transcription</div></div>
+          <div class="media-card"><div class="ic">📊</div><div class="ti">กฎเมนเดล</div><div class="de">การทดลองพันธุกรรมในต้นถั่วลันเตา</div></div>
+          <div class="media-card"><div class="ic">🔄</div><div class="ti">Mitosis & Meiosis</div><div class="de">เปรียบเทียบการแบ่งเซลล์แบบไมโทซิสและไมโอซิส</div></div>
+          <div class="media-card"><div class="ic">✂️</div><div class="ti">CRISPR-Cas9</div><div class="de">เทคโนโลยีแก้ไขจีโนมยุคใหม่</div></div>
+        </div>
+      </div>
+      <div class="content-section">
+        <h3>🌿 หมวด: ชีววิทยาของพืช (Plant Biology)</h3>
+        <div class="media-grid">
+          <div class="media-card"><div class="ic">🌳</div><div class="ti">โครงสร้างพืชดอก</div><div class="de">ราก ลำต้น ใบ ดอก ผล เมล็ด</div></div>
+          <div class="media-card"><div class="ic">💧</div><div class="ti">การลำเลียงน้ำในพืช</div><div class="de">Transpiration pull และ root pressure</div></div>
+          <div class="media-card"><div class="ic">🌸</div><div class="ti">การปฏิสนธิและสืบพันธุ์</div><div class="de">การถ่ายเรณู (pollination) และการเกิดผลและเมล็ด</div></div>
+          <div class="media-card"><div class="ic">📐</div><div class="ti">การตอบสนองของพืช</div><div class="de">Phototropism, Gravitropism, Thigmotropism</div></div>
+        </div>
+      </div>
+      <div class="content-section">
+        <h3>🫀 หมวด: ระบบร่างกายมนุษย์ (Human Body Systems)</h3>
+        <div class="media-grid">
+          <div class="media-card"><div class="ic">🍽️</div><div class="ti">ระบบย่อยอาหาร</div><div class="de">เส้นทางอาหารจากปากถึงลำไส้ใหญ่</div></div>
+          <div class="media-card"><div class="ic">❤️</div><div class="ti">หัวใจและการไหลเวียนเลือด</div><div class="de">วงจรปอดและวงจรร่างกาย</div></div>
+          <div class="media-card"><div class="ic">🫁</div><div class="ti">ระบบหายใจ</div><div class="de">การแลกเปลี่ยนแก๊สที่ alveoli</div></div>
+          <div class="media-card"><div class="ic">🧠</div><div class="ti">ระบบประสาท</div><div class="de">Neuron, action potential, synapse</div></div>
+          <div class="media-card"><div class="ic">💊</div><div class="ti">ระบบต่อมไร้ท่อ</div><div class="de">ฮอร์โมนและการควบคุม homeostasis</div></div>
+          <div class="media-card"><div class="ic">👶</div><div class="ti">ระบบสืบพันธุ์</div><div class="de">การเจริญของตัวอ่อน 9 เดือน</div></div>
+        </div>
+      </div>
+      <div class="content-section">
+        <h3>🌍 หมวด: ระบบนิเวศและความหลากหลาย (Ecology)</h3>
+        <div class="media-grid">
+          <div class="media-card"><div class="ic">🌳</div><div class="ti">ป่าเขตร้อนชื้น</div><div class="de">โครงสร้างเรือนยอดและความหลากหลายในไทย</div></div>
+          <div class="media-card"><div class="ic">🐠</div><div class="ti">ระบบนิเวศปะการัง</div><div class="de">ความสัมพันธ์ symbiosis และการฟอกขาว</div></div>
+          <div class="media-card"><div class="ic">🔄</div><div class="ti">วัฏจักรสารในธรรมชาติ</div><div class="de">วัฏจักรคาร์บอน ไนโตรเจน น้ำ</div></div>
+          <div class="media-card"><div class="ic">📈</div><div class="ti">การเติบโตของประชากร</div><div class="de">J-curve, S-curve และ carrying capacity</div></div>
+        </div>
+      </div>
+      <div class="content-section">
+        <h3>🔗 แหล่งเรียนรู้ภายนอก</h3>
+        <ul>
+          <li><span class="li-dot"></span><a href="https://www.scimath.org" target="_blank" style="color:var(--green-d)">SciMath – สสวท. คลังสื่อชีววิทยา</a></li>
+          <li><span class="li-dot"></span><a href="https://learn.genetics.utah.edu" target="_blank" style="color:var(--green-d)">Learn.Genetics (University of Utah) – พันธุศาสตร์เชิงโต้ตอบ</a></li>
+          <li><span class="li-dot"></span><a href="https://phet.colorado.edu/th/simulations/filter?subjects=biology" target="_blank" style="color:var(--green-d)">PhET Interactive Simulations – ชีววิทยา</a></li>
+          <li><span class="li-dot"></span><a href="https://www.biointeractive.org" target="_blank" style="color:var(--green-d)">HHMI BioInteractive – วิดีโอและกราฟิก</a></li>
+          <li><span class="li-dot"></span><a href="https://www.khanacademy.org/science/biology" target="_blank" style="color:var(--green-d)">Khan Academy – Biology (อังกฤษ)</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <strong>ศูนย์การเรียนรู้ชีววิทยา ม.ปลาย</strong> · จัดทำโดย ครูนันธิดา คำแดง · <a href="mailto:pitukpong36@brw.ac.th">pitukpong36@brw.ac.th</a>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════ PAGE: DOCS ════════════════════════════════════ -->
+<div class="page" id="page-docs">
+  <div class="page-header" style="background:linear-gradient(135deg,var(--green-l),var(--head-2))">
+    <h1>📄 ใบความรู้ชีววิทยา</h1>
+    <p>เอกสารประกอบการเรียน ดาวน์โหลดได้ฟรี ตามหลักสูตร สสวท.</p>
+  </div>
+  <div class="generic-content">
+    <div style="margin-top:32px">
+      <div class="content-section">
+        <h3>📘 ใบความรู้ตามรายวิชา</h3>
+        <div class="media-grid">
+          <div class="media-card"><div class="ic">📄</div><div class="ti">ชีววิทยา 1 – ใบความรู้</div><div class="de">ธรรมชาติ · เคมีพื้นฐาน · เซลล์ (4 บท)</div></div>
+          <div class="media-card"><div class="ic">📄</div><div class="ti">ชีววิทยา 2 – ใบความรู้</div><div class="de">การลำเลียง · หายใจ · แสง · แบ่งเซลล์</div></div>
+          <div class="media-card"><div class="ic">📄</div><div class="ti">ชีววิทยา 3 – ใบความรู้</div><div class="de">พันธุกรรม · DNA · วิวัฒนาการ</div></div>
+          <div class="media-card"><div class="ic">📄</div><div class="ti">ชีววิทยา 4 – ใบความรู้</div><div class="de">โครงสร้างพืชดอก · การลำเลียง · สืบพันธุ์</div></div>
+          <div class="media-card"><div class="ic">📄</div><div class="ti">ชีววิทยา 5 – ใบความรู้</div><div class="de">ระบบในร่างกายมนุษย์ 7 ระบบ</div></div>
+          <div class="media-card"><div class="ic">📄</div><div class="ti">ชีววิทยา 6 – ใบความรู้</div><div class="de">ความหลากหลาย · นิเวศ · สิ่งแวดล้อม</div></div>
+        </div>
+      </div>
+      <div class="content-section">
+        <h3>📝 ใบงาน / แบบฝึกหัด</h3>
+        <div class="media-grid">
+          <div class="media-card"><div class="ic">📝</div><div class="ti">ใบงาน: การจำแนกสิ่งมีชีวิต</div><div class="de">ฝึกใช้ Dichotomous Key</div></div>
+          <div class="media-card"><div class="ic">📝</div><div class="ti">ใบงาน: Punnett Square</div><div class="de">ทำนายลักษณะลูกจากพ่อแม่</div></div>
+          <div class="media-card"><div class="ic">📝</div><div class="ti">ใบงาน: ตรวจเลือดและพยายาธิวิทยา</div><div class="de">วิเคราะห์ผลตรวจสุขภาพ</div></div>
+          <div class="media-card"><div class="ic">📝</div><div class="ti">ใบงาน: ห่วงโซ่อาหาร</div><div class="de">วาดสายใยอาหารและคำนวณพลังงาน</div></div>
+          <div class="media-card"><div class="ic">📝</div><div class="ti">ใบงาน: ปฏิบัติการกล้องจุลทรรศน์</div><div class="de">การดูเซลล์เยื่อบุข้างแก้มและเซลล์ใบ</div></div>
+          <div class="media-card"><div class="ic">📝</div><div class="ti">ใบงาน: ดอกไม้และการสืบพันธุ์</div><div class="de">วาดและระบุส่วนของดอก</div></div>
+        </div>
+      </div>
+      <div class="content-section">
+        <h3>📚 สรุปเนื้อหา (PDF)</h3>
+        <ul>
+          <li><span class="li-dot"></span>สรุปบทเรียน ชีววิทยา 1–6 (PDF · ไฟล์รวม)</li>
+          <li><span class="li-dot"></span>Mind Map ชีววิทยาเซลล์ครบทุกออร์แกเนลล์</li>
+          <li><span class="li-dot"></span>ตารางสรุปฮอร์โมนในร่างกายมนุษย์</li>
+          <li><span class="li-dot"></span>คู่มือเตรียมสอบ A-Level / TPAT / 9 วิชาสามัญ</li>
+          <li><span class="li-dot"></span>คำศัพท์ภาษาอังกฤษ-ไทย วิชาชีววิทยา 500 คำ</li>
+        </ul>
+      </div>
+      <div class="content-section">
+        <h3>🧪 แบบทดสอบ (Practice Tests)</h3>
+        <div class="media-grid">
+          <div class="media-card"><div class="ic">📋</div><div class="ti">Pre-test ก่อนเรียน</div><div class="de">วัดความรู้พื้นฐานก่อนเริ่มบท</div></div>
+          <div class="media-card"><div class="ic">📊</div><div class="ti">Post-test หลังเรียน</div><div class="de">ทดสอบความเข้าใจหลังจบบท</div></div>
+          <div class="media-card"><div class="ic">⏱️</div><div class="ti">ข้อสอบจำลอง A-Level Bio</div><div class="de">ฝึกทำข้อสอบเสมือนจริง</div></div>
+          <div class="media-card"><div class="ic">🎯</div><div class="ti">ข้อสอบจำลอง PAT2/TPAT3</div><div class="de">แนวข้อสอบเข้ามหาวิทยาลัย</div></div>
+        </div>
+      </div>
+      <div class="content-section">
+        <h3>📋 แบบประเมิน</h3>
+        <ul>
+          <li><span class="li-dot"></span>แบบประเมินการสอน ปีการศึกษา ปัจจุบัน</li>
+          <li><span class="li-dot"></span>แบบสอบถามความพึงพอใจของนักเรียน</li>
+          <li><span class="li-dot"></span>แบบประเมินผลสัมฤทธิ์ก่อน-หลังเรียน</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <strong>ศูนย์การเรียนรู้ชีววิทยา ม.ปลาย</strong> · จัดทำโดย ครูนันธิดา คำแดง · <a href="mailto:pitukpong36@brw.ac.th">pitukpong36@brw.ac.th</a>
+  </footer>
+</div>
+
+</main>
+
+<nav class="botnav" id="botnav" aria-label="เมนูสำหรับมือถือ">
+  <button class="botnav-i" id="bn-welcome"   data-page="welcome"   onclick="BotNav.go('welcome')"><b aria-hidden="true">🏠</b>หน้าแรก</button>
+  <button class="botnav-i" id="bn-home"      data-page="home"      onclick="BotNav.go('home')"><b aria-hidden="true">📚</b>เนื้อหา</button>
+  <button class="botnav-i" id="bn-quiz"      data-page="quiz"      onclick="BotNav.go('quiz')"><b aria-hidden="true">✏️</b>แบบทดสอบ</button>
+  <button class="botnav-i" id="bn-dashboard" data-page="dashboard" onclick="BotNav.go('dashboard')"><b aria-hidden="true">📊</b>ก้าวหน้า</button>
+  <button class="botnav-i" id="bn-more" onclick="BotNav.toggleMore()" aria-haspopup="true" aria-expanded="false" aria-controls="botnavMore"><b aria-hidden="true">⋯</b>อื่น ๆ</button>
+</nav>
+<div class="botnav-more" id="botnavMore" role="menu">
+  <button role="menuitem" onclick="BotNav.go('media')">🎬 สื่อการเรียน</button>
+  <button role="menuitem" onclick="BotNav.go('docs')">📄 ใบความรู้</button>
+</div>
+
+<button id="backTop" aria-label="เลื่อนขึ้นบนสุด" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script src="data/meta.js"></script>
+<script src="data/search.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
