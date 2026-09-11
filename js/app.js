@@ -50,6 +50,7 @@ function showPage(pageId) {
     if (navBtn) { navBtn.classList.add('active'); navBtn.setAttribute('aria-current', 'page'); }
     BotNav.sync(pageId);
     if (pageId === 'welcome') updateResume();
+    if (pageId === 'media') Media.load();
   });
   window.scrollTo({ top: 0, behavior: reduceMotion() ? 'auto' : 'smooth' });
 }
@@ -794,3 +795,41 @@ function showUpdateBar(reg) {
   };
   document.getElementById('swLaterBtn').onclick = function () { bar.remove(); };
 }
+
+/* ============================================================
+   คลังสื่อการเรียน — สร้างการ์ดจาก data/media.js
+   (เดิมการ์ดเป็น <div> เปล่า ๆ ไม่มีปลายทาง กดแล้วไม่เกิดอะไร)
+   ============================================================ */
+const Media = {
+  done: false,
+  load() {
+    if (this.done) return;
+    const box = document.getElementById('mediaRoot');
+    if (!box) return;
+    const self = this;
+    Loader.load('data/media.js').then(function () {
+      self.render(); self.done = true;
+    }).catch(function (e) {
+      box.innerHTML = '<div class="dash-empty">โหลดคลังสื่อไม่สำเร็จ (' + e.message + ')<br>' +
+        'ตรวจว่ามีไฟล์ <strong>data/media.js</strong> อยู่</div>';
+    });
+  },
+  render() {
+    const box = document.getElementById('mediaRoot');
+    if (!box || !window.BIO || !BIO.MEDIA) return;
+    box.innerHTML = BIO.MEDIA.map(function (g) {
+      return '<div class="content-section"><h3>' + Search.esc(g.cat) + '</h3><div class="media-grid">' +
+        g.items.map(function (m) {
+          const head = '<div class="ic" aria-hidden="true">' + m.ic + '</div>' +
+            '<div class="ti">' + Search.esc(m.ti) + '</div>' +
+            '<div class="de">' + Search.esc(m.de) + '</div>';
+          if (!m.url) {
+            return '<div class="media-card is-soon"><span class="media-soon">เร็ว ๆ นี้</span>' + head + '</div>';
+          }
+          return '<a class="media-card" href="' + Search.esc(m.url) + '" target="_blank" rel="noopener noreferrer">' +
+            head + '<div class="media-src">' + Search.esc(m.src || 'แหล่งภายนอก') +
+            ' <span aria-hidden="true">↗</span><span class="sr-only">(เปิดในแท็บใหม่)</span></div></a>';
+        }).join('') + '</div></div>';
+    }).join('');
+  }
+};

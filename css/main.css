@@ -766,3 +766,16 @@ body{ transition: background-color .2s ease; }
 .acct-link{border:none;background:none;color:var(--green-d);cursor:pointer;
   font-family:inherit;font-size:.85rem;text-decoration:underline;padding:6px 0}
 @media(max-width:700px){ .acct-box{padding:22px 17px 16px} }
+
+/* ── การ์ดคลังสื่อ: ทำให้กดได้จริง ─────────────────────── */
+a.media-card{display:block;text-decoration:none;color:inherit;position:relative}
+a.media-card:hover .ti{color:var(--green-d)}
+a.media-card:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+.media-src{margin-top:9px;font-size:11.5px;color:var(--green-d);font-weight:600;
+  display:flex;align-items:center;gap:4px}
+.media-card.is-soon{opacity:.6;cursor:default;position:relative}
+.media-card.is-soon:hover{transform:none;box-shadow:none}
+.media-soon{position:absolute;top:10px;right:12px;font-size:10.5px;font-weight:600;
+  background:var(--border);color:var(--muted);padding:2px 9px;border-radius:999px}
+/* เดิมทั้งการ์ดเป็น div ที่ตั้ง cursor:pointer ไว้ — ใบที่ยังไม่มีปลายทางต้องไม่ชี้ว่ากดได้ */
+.media-card{min-height:auto}
