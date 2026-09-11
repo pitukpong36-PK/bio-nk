@@ -740,3 +740,29 @@ body{ transition: background-color .2s ease; }
   font-size:.9rem;color:var(--text);
 }
 @media(max-width:700px){ .sw-update{bottom:74px} }
+
+/* ── บัญชีผู้ใช้ (เฟส 1) ───────────────────────────────── */
+.acct-modal{position:fixed;inset:0;z-index:300;background:rgba(15,23,42,.55);
+  display:flex;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(3px)}
+.acct-box{background:var(--white);border:1px solid var(--border);border-radius:18px;
+  padding:26px 24px 20px;max-width:400px;width:100%;position:relative;
+  box-shadow:0 18px 60px rgba(0,0,0,.3);max-height:90vh;overflow-y:auto}
+.acct-x{position:absolute;top:10px;right:12px;border:none;background:none;cursor:pointer;
+  font-size:26px;line-height:1;color:var(--muted);width:40px;height:40px;border-radius:50%}
+.acct-x:hover{background:var(--bg);color:var(--text)}
+.acct-h{font-family:'Prompt',sans-serif;font-size:1.08rem;color:var(--green-d);margin:0 0 16px}
+.acct-l{display:block;font-size:.85rem;color:var(--muted);margin-bottom:13px;font-weight:500}
+.acct-i{display:block;width:100%;margin-top:5px;padding:11px 13px;min-height:44px;
+  border:1px solid var(--border);border-radius:10px;background:var(--bg);color:var(--text);
+  font-family:inherit;font-size:16px}
+.acct-i:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 4px var(--green-l)}
+.acct-note{background:var(--green-l);color:var(--green-d);border-radius:10px;
+  padding:12px 14px;font-size:.85rem;line-height:1.75;margin-bottom:14px}
+.acct-msg{font-size:.85rem;color:var(--green-d);margin-top:10px;min-height:20px;line-height:1.6}
+.acct-msg.bad{color:var(--ink-coral)}
+.acct-who{display:flex;align-items:center;gap:13px;margin-bottom:14px}
+.acct-av{width:50px;height:50px;border-radius:50%;background:var(--green-l);
+  display:flex;align-items:center;justify-content:center;font-size:24px;flex:none}
+.acct-link{border:none;background:none;color:var(--green-d);cursor:pointer;
+  font-family:inherit;font-size:.85rem;text-decoration:underline;padding:6px 0}
+@media(max-width:700px){ .acct-box{padding:22px 17px 16px} }

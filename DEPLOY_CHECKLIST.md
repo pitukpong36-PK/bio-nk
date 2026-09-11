@@ -12,29 +12,33 @@
 | โหมดมืด · มือถือ · เข้าถึงได้ (เฟส 3) | ✅ ผ่าน WCAG AA |
 | แบบทดสอบ + แดชบอร์ด (เฟส 4) | ✅ 544 ข้อ |
 | PWA (ติดตั้งเป็นแอป/ออฟไลน์) | ✅ ทดสอบผ่านแล้ว |
-| git ในเครื่อง | ✅ commit แรกเรียบร้อย |
-| **ขึ้น GitHub Pages** | ⬜ **ยังไม่ทำ** |
-| ระบบสมาชิก (Firebase) | ⬜ ยังไม่ทำ — ตอนนี้เก็บในเบราว์เซอร์เครื่องเดียว |
+| git + GitHub | ✅ https://github.com/pitukpong36-PK/bio-nk (**private**) |
+| **เปิด GitHub Pages** | ⬜ **ยังไม่ทำ** — ต้องเปลี่ยน repo เป็น public ก่อน |
+| โค้ดระบบสมาชิก | ✅ เขียนเสร็จแล้ว รอใส่ค่า Firebase |
+| **เปิดใช้ Firebase จริง** | ⬜ **ยังไม่ทำ** — ตอนนี้ทำงานโหมดเก็บในเครื่อง |
 
 ---
 
 ## 🔴 ขั้นตอนขึ้นเว็บจริง
 
-### 1. สร้าง repo และ push
+### 1. ~~สร้าง repo และ push~~ ✅ ทำแล้ว
 
-```bash
-cd "~/Desktop/05_NK Web site project/NK Website"
-gh repo create bio-nk --public --source=. --remote=origin --push
-```
-> `gh` ล็อกอินบัญชี **pitukpong36-PK** อยู่แล้ว
+repo อยู่ที่ https://github.com/pitukpong36-PK/bio-nk — ตอนนี้เป็น **private**
 
 ### 2. เปิด GitHub Pages
 
+GitHub Pages บนบัญชีฟรีใช้ได้กับ repo แบบ **public** เท่านั้น ต้องเปลี่ยนก่อน:
+
 ```bash
+cd "~/Desktop/05_NK Web site project/NK Website"
+gh repo edit --visibility public --accept-visibility-change-consequences
 gh api -X POST repos/pitukpong36-PK/bio-nk/pages \
   -f 'source[branch]=main' -f 'source[path]=/'
 ```
 หรือทำในเว็บ: repo → **Settings → Pages → Source: Deploy from a branch → main / (root) → Save**
+
+> ⚠️ เปลี่ยนเป็น public = โค้ดและเนื้อหาทั้งหมดเปิดให้ทุกคนเห็นและคัดลอกได้
+> (ซึ่งจำเป็นถ้าจะให้นักเรียนเข้าเว็บได้ — เนื้อหาเว็บก็เปิดสาธารณะอยู่แล้วโดยธรรมชาติ)
 
 รอ 1–2 นาที เว็บจะขึ้นที่
 **https://pitukpong36-pk.github.io/bio-nk/**
@@ -96,12 +100,41 @@ git add -A && git commit -m "อธิบายสั้น ๆ ว่าแก�
 ระหว่างนี้ใช้ทางนี้ไปก่อนได้: หน้า **ความก้าวหน้า** → ปุ่ม **ส่งออก CSV** ให้นักเรียนส่งไฟล์มา
 และปุ่ม **สำรองข้อมูล (JSON)** สำหรับย้ายเครื่อง
 
-ถ้าจะทำระบบสมาชิกจริงต้องมี:
-- [ ] โปรเจกต์ Firebase + เปิด Authentication (Email/Password) + Firestore
-- [ ] ใส่ค่า `firebaseConfig` จริงลงในโค้ด
-- [ ] ตั้ง Security Rules: นักเรียนอ่าน/เขียนได้เฉพาะข้อมูลตัวเอง ครูอ่านได้ทุกคน
-- [ ] เลือก region **asia-southeast1 (สิงคโปร์)** ให้เร็วสำหรับผู้ใช้ในไทย
-- [ ] ทดสอบสมัคร–ล็อกอิน–ดูแดชบอร์ดครู จากคนละเครื่อง
+**โค้ดเขียนเสร็จแล้ว** (`js/cloud.js` + `js/account.js`) รอแค่ใส่ค่าจริง 5 ขั้นตอน:
+
+**1. สร้างโปรเจกต์ Firebase**
+- ไปที่ https://console.firebase.google.com → Add project (ชื่ออะไรก็ได้ เช่น `bio-nk`)
+- ปิด Google Analytics ได้ ไม่จำเป็น
+
+**2. เปิด Authentication**
+- เมนู Build → Authentication → Get started
+- แท็บ **Sign-in method** → เปิด **Email/Password**
+- แท็บ **Settings → Authorized domains** → เพิ่ม `pitukpong36-pk.github.io`
+
+**3. เปิด Firestore**
+- Build → Firestore Database → Create database
+- เลือก **Production mode**
+- Location: **asia-southeast1 (Singapore)** ← สำคัญ เร็วกว่าสำหรับผู้ใช้ในไทย
+
+**4. ใส่ค่า config ลงในโค้ด**
+- Project settings (⚙️) → เลื่อนลงหา "Your apps" → กดไอคอน `</>` (Web)
+- คัดลอกค่าใน `firebaseConfig` มาวางทับใน **`js/cloud.js` บรรทัด 13–20**
+- พอ `apiKey` ไม่ขึ้นต้นด้วย `YOUR_` ระบบจะสลับเป็นโหมดคลาวด์เองอัตโนมัติ
+
+**5. ตั้ง Security Rules**
+- Firestore → แท็บ **Rules** → ลบของเดิมทิ้ง
+- คัดลอกเนื้อหาทั้งหมดจากไฟล์ **`firestore.rules`** ในโปรเจกต์นี้ไปวาง → กด **Publish**
+- ⚠️ ไม่ทำขั้นนี้ = ใครก็อ่านข้อมูลนักเรียนได้ หรือเขียนอะไรไม่ได้เลย
+
+**ตรวจหลังเปิดใช้:**
+- [ ] สมัครบัญชีทดสอบ → ดูว่าข้อมูลขึ้นใน Firestore → users
+- [ ] ล็อกอินด้วยอีเมลครู (`pitukpong36@brw.ac.th`) → เห็นปุ่ม "แดชบอร์ดครู"
+- [ ] ล็อกอินบัญชีนักเรียนคนละเครื่อง → ความก้าวหน้าตามมาจริง
+- [ ] ลองบัญชีนักเรียนกดเข้าแดชบอร์ดครู → ต้องเข้าไม่ได้
+
+**เปลี่ยนรายชื่อครู** ต้องแก้ 2 ที่ให้ตรงกัน:
+- `TEACHERS` ใน `js/cloud.js`
+- `isTeacher()` ใน `firestore.rules` (แล้ว Publish ใหม่ในคอนโซล)
 
 ---
 

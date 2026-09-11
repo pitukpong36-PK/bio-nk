@@ -117,6 +117,8 @@ const Store = {
   save() {
     try { localStorage.setItem(STORE_KEY, JSON.stringify(this.data)); }
     catch (e) { this.ok = false; }
+    /* ถ้าล็อกอินอยู่ ส่งขึ้นคลาวด์ด้วย (หน่วงไว้ ไม่ยิงถี่) */
+    if (typeof Cloud !== 'undefined' && Cloud.on) Cloud.pushSoon();
   },
   today() {
     const d = new Date();
@@ -604,7 +606,11 @@ document.addEventListener('click', function (e) {
   if (m && m.classList.contains('show') && !e.target.closest('#botnavMore') && !e.target.closest('#bn-more')) BotNav.closeMore();
 });
 document.addEventListener('keydown', function (e) {
-  if (e.key === 'Escape') { BotNav.closeMore(); Search.close(); }
+  if (e.key === 'Escape') {
+    BotNav.closeMore(); Search.close();
+    const am = document.getElementById('acctModal');
+    if (am && am.style.display === 'flex') Account.close();
+  }
 });
 
 /* ---------- ห่อตารางให้เลื่อนแนวนอนได้บนจอแคบ ---------- */
